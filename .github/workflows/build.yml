@@ -62,7 +62,13 @@ jobs:
 
       - name: Copy App Launcher Icons
         run: |
-          if [ -d "icons" ]; then
+          if [ -f "icons/icon-512.png" ]; then
+            for density in mdpi hdpi xhdpi xxhdpi xxxhdpi; do
+              mkdir -p "android/app/src/main/res/mipmap-$density"
+              cp "icons/icon-512.png" "android/app/src/main/res/mipmap-$density/ic_launcher.png"
+              cp "icons/icon-512.png" "android/app/src/main/res/mipmap-$density/ic_launcher_round.png"
+            done
+          elif [ -d "icons" ]; then
             for density in mdpi hdpi xhdpi xxhdpi xxxhdpi; do
               if [ -f "icons/mipmap-$density/ic_launcher.png" ]; then
                 mkdir -p "android/app/src/main/res/mipmap-$density"
