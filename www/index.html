@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MySpace</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);--bg:#f3f4fa;--card:#fff;--tx:#1e2233;--mu:#6c7389;--ln:#e4e6f0;--ac:#5b6cf0;--soft:#e9ecfe;--red:#e5484d;--grn:#2fa36b}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#11131b;--card:#1b1e2a;--tx:#eceffa;--mu:#9aa1b8;--ln:#2a2e3d;--ac:#8493ff;--soft:#262b45}}
+:root[data-theme="dark"]{--bg:#11131b;--card:#1b1e2a;--tx:#eceffa;--mu:#9aa1b8;--ln:#2a2e3d;--ac:#8493ff;--soft:#262b45}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--tx);font:16px/1.45 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;align-items:center;justify-content:space-between;padding:12px 18px}
+h1{margin:0;font-size:26px}button,input,select,textarea{font:inherit;color:var(--tx)}
+main{max-width:720px;margin:auto;padding:0 16px}
+.ib{border:0;background:var(--card);border-radius:50%;width:42px;height:42px;font-size:20px;cursor:pointer;box-shadow:0 1px 3px #0002}
+.card,.it{background:var(--card);border-radius:18px;padding:14px 16px;margin-bottom:12px;box-shadow:0 1px 3px #0001;animation:up .25s ease}
+@keyframes up{from{opacity:0;transform:translateY(6px)}}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}.grid .card{margin:0;text-align:left;border:0;cursor:pointer}
+.big{font-size:26px;font-weight:700;color:var(--ac)}.mu{color:var(--mu);font-size:14px}.ico{font-size:28px}
+.seg{display:flex;background:var(--card);border-radius:14px;padding:4px;margin-bottom:14px;overflow-x:auto}
+.seg button{flex:1;border:0;background:none;padding:9px 12px;border-radius:10px;color:var(--mu);font-weight:600;cursor:pointer;white-space:nowrap}
+.seg .on{background:var(--ac);color:#fff}
+h4{margin:16px 4px 8px;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--mu)}h4 i{font-style:normal;background:var(--soft);color:var(--ac);border-radius:9px;padding:1px 8px;margin-left:4px}
+.it{display:flex;gap:12px;align-items:flex-start;cursor:pointer}.bd{flex:1;min-width:0;word-break:break-word}.dn .bd>b{text-decoration:line-through;color:var(--mu)}
+.ck{flex:none;width:26px;height:26px;border-radius:50%;border:2px solid var(--ln);background:none;color:transparent;cursor:pointer;font-size:14px;padding:0}.ck.on{background:var(--grn);border-color:var(--grn);color:#fff}
+.sb{display:flex;gap:8px;align-items:center;margin-top:6px;font-size:15px}.sb.dn{color:var(--mu);text-decoration:line-through}.ck.s{width:20px;height:20px;font-size:11px}
+.mt{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}.bg{font-size:12px;background:var(--soft);color:var(--ac);border-radius:8px;padding:2px 8px}.bg.red,.bg.pHigh{background:#e5484d22;color:var(--red)}.bg.pLow{color:var(--mu)}
+.sn{margin:6px 0 0;color:var(--mu);font-size:14px;white-space:pre-wrap}
+.bar{height:8px;background:var(--ln);border-radius:9px;margin:8px 0 2px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ac);border-radius:9px}
+input,select,textarea{width:100%;background:var(--bg);border:1px solid var(--ln);border-radius:12px;padding:11px 12px;margin:4px 0 12px}textarea{min-height:90px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--ac);border-color:transparent}label{font-size:13px;color:var(--mu)}
+.btn{border:0;background:var(--ac);color:#fff;border-radius:12px;padding:11px 16px;font-weight:600;cursor:pointer}.btn.g{background:var(--soft);color:var(--ac)}.btn.r{background:#e5484d22;color:var(--red)}
+.row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1}
+nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--ln);z-index:6}
+nav button{flex:1;border:0;background:none;color:var(--mu);font-size:11px;padding:6px 0;cursor:pointer;border-radius:12px}nav button span{display:block;font-size:22px}nav .on{color:var(--ac);font-weight:700}
+.fab{position:fixed;right:18px;bottom:calc(86px + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:50%;border:0;background:var(--ac);color:#fff;font-size:30px;box-shadow:0 4px 12px #0004;z-index:6;cursor:pointer}
+#m{position:fixed;inset:0;background:#0007;display:none;align-items:flex-end;justify-content:center;z-index:20}#m.on{display:flex}
+#sh{background:var(--card);width:100%;max-width:560px;max-height:90vh;overflow:auto;border-radius:22px 22px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px))}#sh h3{margin:0 0 12px}
+#t{position:fixed;left:50%;top:calc(70px + env(safe-area-inset-top,0px));transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:8px 16px;border-radius:20px;font-size:14px;opacity:0;pointer-events:none;transition:.2s;z-index:30}#t.on{opacity:.95}
+.emp{text-align:center;color:var(--mu);padding:30px 10px}.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;margin-top:10px}.cd{border:0;background:none;border-radius:12px;padding:9px 0;cursor:pointer;position:relative}.cd.sel{background:var(--ac);color:#fff}.cd.tdy{outline:2px solid var(--ac)}.cd u{position:absolute;bottom:3px;left:50%;width:5px;height:5px;margin-left:-2px;border-radius:50%;background:var(--red)}#ov{display:none;position:fixed;inset:0;background:var(--bg);z-index:40;align-items:center;justify-content:center}.err{color:var(--red);font-size:14px;min-height:20px}
+</style></head><body>
+<header><h1 id="ttl">MySpace</h1><button class="ib" data-a="set" aria-label="Settings">⚙️</button></header>
+<main id="app"></main><button class="fab" id="fab" data-a="fab" aria-label="Add">+</button>
+<nav id="nv"></nav><div id="ov"></div><div id="m"><div id="sh"></div></div><div id="t"></div>
+<script>
+const $=s=>document.querySelector(s),E=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])),uid=()=>Math.random().toString(36).slice(2,9);
+const pad=n=>String(n).padStart(2,"0"),today=()=>{const d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())},fd=d=>new Date(d+"T00:00").toLocaleDateString(undefined,{month:"short",day:"numeric"});
+const blank=()=>({tasks:[],goals:[],notes:[],plan:[],gmails:[],apps:[],prefs:{name:"",theme:""}});
+let D=blank();try{const x=JSON.parse(localStorage.getItem("ms_data"));if(x)D=Object.assign(blank(),x)}catch(e){}
+const save=()=>{try{localStorage.setItem("ms_data",JSON.stringify(D))}catch(e){toast("Could not save: storage is full")}};
+let tab="home",sub={personal:"tasks",work:"tasks",accounts:"apps"},Q="",FG="",VC="",shown={},V={key:null,list:[],salt:""},pend=null,cur=null;
+const toast=m=>{const t=$("#t");t.textContent=m;t.classList.add("on");clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove("on"),1600)};
+const emp=t=>`<div class="emp">${t}</div>`,gp=g=>g.subs&&g.subs.length?Math.round(g.subs.filter(s=>s.d).length/g.subs.length*100):Math.min(100,+g.prog||0);
+// ---- vault crypto (PBKDF2 + AES-GCM, nothing readable is stored)
+const enc=new TextEncoder(),dec=new TextDecoder(),b64=u=>btoa(String.fromCharCode(...new Uint8Array(u))),ub=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+async function mk(pw,salt){const k=await crypto.subtle.importKey("raw",enc.encode(pw),"PBKDF2",false,["deriveKey"]);return crypto.subtle.deriveKey({name:"PBKDF2",salt,iterations:310000,hash:"SHA-256"},k,{name:"AES-GCM",length:256},false,["encrypt","decrypt"])}
+async function vsave(){const iv=crypto.getRandomValues(new Uint8Array(12)),ct=await crypto.subtle.encrypt({name:"AES-GCM",iv},V.key,enc.encode(JSON.stringify(V.list)));localStorage.setItem("ms_vault",JSON.stringify({s:V.salt,i:b64(iv),c:b64(ct)}))}
+async function vunlock(pw){const o=JSON.parse(localStorage.getItem("ms_vault")),key=await mk(pw,ub(o.s)),pt=await crypto.subtle.decrypt({name:"AES-GCM",iv:ub(o.i)},key,ub(o.c));V.key=key;V.salt=o.s;V.list=JSON.parse(dec.decode(pt))}
+async function vsetup(pw){const s=crypto.getRandomValues(new Uint8Array(16));V.salt=b64(s);V.key=await mk(pw,s);V.list=[];await vsave()}
+const lock=()=>{V.key=null;V.list=[];shown={};render()};let lt;const touch=()=>{clearTimeout(lt);if(V.key)lt=setTimeout(()=>{lock();toast("Vault locked")},180000)};
+document.addEventListener("visibilitychange",()=>{if(document.hidden&&V.key){clearTimeout(lt);lt=setTimeout(lock,30000)}else touch()});["click","keydown"].forEach(e=>document.addEventListener(e,touch));
+const gen=(n=20)=>{const cs="abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$%^&*-_?",r=crypto.getRandomValues(new Uint32Array(n));return[...r].map(x=>cs[x%cs.length]).join("")};
+// ---- schemas
+const F={task:{c:"tasks",n:"task",f:[["t","Title","text"],["ctx","Belongs to","sel",["Personal","Work"]],["due","Due date","date"],["pri","Priority","sel",["High","Medium","Low"],"Medium"],["status","Status","sel",["To do","In progress","Blocked"]],["subs","Subtasks / checklist (one per line)","lines"],["notes","Notes","area"]]},
+goal:{c:"goals",n:"goal",f:[["t","Goal","text"],["ctx","Belongs to","sel",["Personal","Work"]],["kind","Type","sel",["Short-term","Long-term"]],["due","Deadline","date"],["desc","Description","area"],["subs","Steps / milestones (one per line)","lines"],["prog","Progress % (used if no steps)","num"]]},
+note:{c:"notes",n:"note",f:[["t","Title","text"],["ctx","Belongs to","sel",["Personal","Work"]],["tag","Tag / folder","text"],["body","Note (links welcome)","area"]]},
+plan:{c:"plan",n:"entry",f:[["t","What","text"],["kind","Type","sel",["Appointment","Routine","Important date"]],["date","Date","date"],["time","Time","time"]]},
+gmail:{c:"gmails",n:"Gmail account",f:[["email","Gmail address","text"],["nick","Nickname (Personal, Work, Backup…)","text"],["purpose","Purpose","text"],["notes","Notes","area"]]},
+app:{c:"apps",n:"app / website",f:[["name","App or website","text"],["gid","Gmail used","gsel"],["url","Website URL","text"],["cat","Category","text"],["user","Username (if different)","text"],["vid","Linked vault entry","vsel"],["notes","Notes","area"]]}};
+function modal(h){$("#sh").innerHTML=h;$("#m").classList.add("on")}const closeM=()=>$("#m").classList.remove("on");
+const ask=(msg,fn)=>{pend=fn;modal(`<h3>Are you sure?</h3><p>${msg}</p><div class="row"><button class="btn g" data-a="x">Cancel</button><button class="btn r" data-a="yes">Yes</button></div>`)};
+function openForm(kind,id,ctx){const S=F[kind],old=D[S.c].find(x=>x.id===id),it=old||{id:uid(),ctx:ctx||"Personal",date:kind==="plan"?CS:""};cur={kind,id:it.id,old:!!old};
+let h=`<h3>${old?"Edit":"Add"} ${S.n}</h3>`;
+S.f.forEach(([k,l,ty,op,df],i)=>{const v=it[k]??"",a=`id="f${i}"`;h+=`<label>${l}</label>`;
+if(ty==="sel")h+=`<select ${a}>${op.map(o=>`<option${(v||df||op[0])===o?" selected":""}>${o}</option>`).join("")}</select>`;
+else if(ty==="gsel")h+=`<select ${a}><option value="">None</option>${D.gmails.map(g=>`<option value="${g.id}"${v===g.id?" selected":""}>${E(g.nick||g.email)}</option>`).join("")}</select>`;
+else if(ty==="vsel")h+=V.key?`<select ${a}><option value="">None</option>${V.list.map(g=>`<option value="${g.id}"${v===g.id?" selected":""}>${E(g.name)}</option>`).join("")}</select>`:`<p class="mu" ${a} data-keep="${E(v)}">Unlock the Vault to link an entry.</p>`;
+else if(ty==="area")h+=`<textarea ${a}>${E(v)}</textarea>`;
+else if(ty==="lines")h+=`<textarea ${a}>${E((it[k]||[]).map(s=>s.t).join("\n"))}</textarea>`;
+else h+=`<input ${a} type="${ty}" value="${E(v)}">`});
+h+=`<div class="row">${old?'<button class="btn r" data-a="del">Delete</button>':""}<button class="btn g" data-a="x">Cancel</button><button class="btn" data-a="save">Save</button></div>`;modal(h)}
+function saveForm(){const S=F[cur.kind],arr=D[S.c],old=arr.find(x=>x.id===cur.id),it=old||{id:cur.id},v={};
+S.f.forEach(([k,l,ty],i)=>{const el=$("#f"+i);let x=ty==="vsel"&&!V.key?el.dataset.keep:el.value.trim();
+if(ty==="lines")x=el.value.split("\n").map(s=>s.trim()).filter(Boolean).map(t=>({t,d:!!(it[k]||[]).find(s=>s.t===t&&s.d)}));v[k]=x});
+if(!(v.t||v.email||v.name)){toast("Please add a title");return}if(v.url&&!/^https?:\/\//i.test(v.url))v.url="https://"+v.url;
+Object.assign(it,v);if(!old)arr.push(it);save();closeM();render()}
+// ---- vault entry form
+function openV(id){const e=V.list.find(x=>x.id===id)||{};cur={v:1,id:e.id||uid(),old:!!e.id};
+const f=(k,l,t="text")=>`<label>${l}</label><input id="v${k}" type="${t}" value="${E(e[k]||"")}">`;
+modal(`<h3>${e.id?"Edit":"Add"} login</h3>${f("name","Website or app")}${f("user","Gmail or username")}<label>Password</label><div class="row" style="flex-wrap:nowrap"><input id="vpw" type="text" value="${E(e.pw||"")}"><button class="btn g" style="flex:none;margin:4px 0 12px" data-a="gen">Generate</button></div>${f("url","Website URL")}${f("cat","Category")}<label>Notes</label><textarea id="vnotes">${E(e.notes||"")}</textarea><div class="row">${e.id?'<button class="btn r" data-a="vdel">Delete</button>':""}<button class="btn g" data-a="x">Cancel</button><button class="btn" data-a="vsv">Save</button></div>`)}
+async function saveV(){const g=k=>$("#v"+k).value.trim(),e={id:cur.id,name:g("name"),user:g("user"),pw:$("#vpw").value,url:g("url"),cat:g("cat"),notes:g("notes")};if(!e.name){toast("Please add a name");return}
+const i=V.list.findIndex(x=>x.id===e.id);i<0?V.list.push(e):V.list[i]=e;await vsave();closeM();render()}
+// ---- views
+const taskC=t=>`<div class="it${t.done?" dn":""}" data-a="edit" data-kind="task" data-id="${t.id}"><button class="ck${t.done?" on":""}" data-a="tog" data-col="tasks" data-id="${t.id}">✓</button><div class="bd"><b>${E(t.t)}</b><div class="mt">${t.due?`<span class="bg${t.due<today()&&!t.done?" red":""}">📅 ${fd(t.due)}</span>`:""}<span class="bg p${t.pri||"Medium"}">${t.pri||"Medium"}</span>${t.ctx==="Work"&&t.status?`<span class="bg">${E(t.status)}</span>`:""}</div>${subsH(t,"tasks")}${t.notes?`<p class="sn">${E(t.notes)}</p>`:""}</div></div>`;
+const subsH=(o,c)=>(o.subs||[]).map((s,i)=>`<div class="sb${s.d?" dn":""}"><button class="ck s${s.d?" on":""}" data-a="tog" data-col="${c}" data-id="${o.id}" data-i="${i}">✓</button>${E(s.t)}</div>`).join("");
+function tasksH(c){const T=D.tasks.filter(t=>t.ctx===c).sort((a,b)=>(a.due||"9")>(b.due||"9")?1:-1),td=today(),op=T.filter(t=>!t.done);
+return[["Overdue",op.filter(t=>t.due&&t.due<td)],["Today",op.filter(t=>t.due===td)],["Upcoming",op.filter(t=>!t.due||t.due>td)],["Completed",T.filter(t=>t.done)]].map(([n,a])=>a.length?`<h4>${n}<i>${a.length}</i></h4>`+a.map(taskC).join(""):"").join("")||emp("No tasks yet. Tap + to add one.")}
+const goalC=g=>`<div class="it" data-a="edit" data-kind="goal" data-id="${g.id}"><div class="bd"><b>${E(g.t)}</b><div class="mt"><span class="bg">${E(g.kind||"Goal")}</span>${g.due?`<span class="bg">🎯 ${fd(g.due)}</span>`:""}</div>${g.desc?`<p class="sn">${E(g.desc)}</p>`:""}<div class="bar"><i style="width:${gp(g)}%"></i></div><span class="mu">${gp(g)}%</span>${subsH(g,"goals")}</div></div>`;
+function notesH(c){const q=Q.toLowerCase(),a=D.notes.filter(n=>n.ctx===c&&(n.t+n.body+(n.tag||"")).toLowerCase().includes(q)).sort((a,b)=>(b.pin?1:0)-(a.pin?1:0));
+return a.map(n=>`<div class="it" data-a="edit" data-kind="note" data-id="${n.id}"><div class="bd"><b>${n.pin?"📌 ":""}${E(n.t)}</b>${n.tag?`<div class="mt"><span class="bg">${E(n.tag)}</span></div>`:""}<p class="sn">${E((n.body||"").slice(0,160))}</p></div><button class="ib" data-a="pin" data-id="${n.id}">${n.pin?"★":"☆"}</button></div>`).join("")||emp("No notes found.")}
+function planH(){const td=today(),P=[...D.plan].sort((a,b)=>(a.date+(a.time||""))>(b.date+(b.time||""))?1:-1),row=p=>`<div class="it" data-a="edit" data-kind="plan" data-id="${p.id}"><div class="bd"><b>${E(p.t)}</b><div class="mt"><span class="bg">${p.date?fd(p.date):"Anytime"}${p.time?" · "+p.time:""}</span><span class="bg">${E(p.kind||"")}</span></div></div></div>`;
+const up=P.filter(p=>!p.date||p.date>=td),old=P.filter(p=>p.date&&p.date<td).slice(-5);
+return(up.length?`<h4>Upcoming</h4>`+up.map(row).join(""):emp("Nothing planned. Tap + to add an appointment, routine or date."))+(old.length?`<h4>Earlier</h4>`+old.map(row).join(""):"")}
+let CM=new Date(),CS=today();
+const planRow=p=>`<div class="it" data-a="edit" data-kind="plan" data-id="${p.id}"><div class="bd"><b>${E(p.t)}</b><div class="mt"><span class="bg">${p.time||"Anytime"}</span><span class="bg">${E(p.kind||"")}</span></div></div></div>`;
+function calH(){const y=CM.getFullYear(),m=CM.getMonth(),f=new Date(y,m,1).getDay(),n=new Date(y,m+1,0).getDate(),mk={};D.plan.forEach(p=>p.date&&(mk[p.date]=1));D.tasks.forEach(t=>t.ctx==="Personal"&&!t.done&&t.due&&(mk[t.due]=1));
+let c="";for(let i=0;i<f;i++)c+="<i></i>";for(let d=1;d<=n;d++){const k=y+"-"+pad(m+1)+"-"+pad(d);c+=`<button class="cd${k===CS?" sel":""}${k===today()?" tdy":""}" data-a="cd" data-d="${k}">${d}${mk[k]?"<u></u>":""}</button>`}
+const ev=D.plan.filter(p=>p.date===CS).sort((a,b)=>(a.time||"")>(b.time||"")?1:-1),ts=D.tasks.filter(t=>t.ctx==="Personal"&&t.due===CS);
+return`<div class="card"><div class="row" style="align-items:center;flex-wrap:nowrap"><button class="ib" data-a="cm" data-d="-1" style="flex:none">‹</button><b style="text-align:center">${CM.toLocaleDateString(undefined,{month:"long",year:"numeric"})}</b><button class="ib" data-a="cm" data-d="1" style="flex:none">›</button></div><div class="cal">${"SMTWTFS".split("").map(x=>`<span class="mu">${x}</span>`).join("")}${c}</div></div><h4>${fd(CS)}</h4>`+(ev.length||ts.length?ev.map(planRow).join("")+ts.map(taskC).join(""):emp("Nothing on this day. Tap + to add something."))}
+const gname=id=>{const g=D.gmails.find(x=>x.id===id);return g?g.nick||g.email:""};
+function appsH(){const q=Q.toLowerCase(),a=D.apps.filter(p=>(!FG||p.gid===FG)&&(p.name+p.cat+p.user+gname(p.gid)).toLowerCase().includes(q));
+return a.map(p=>`<div class="it" data-a="edit" data-kind="app" data-id="${p.id}"><div class="bd"><b>${E(p.name)}</b><div class="mt">${p.gid?`<span class="bg">✉️ ${E(gname(p.gid))}</span>`:""}${p.cat?`<span class="bg">${E(p.cat)}</span>`:""}${p.vid?`<span class="bg" data-a="tovault">🔑 in Vault</span>`:""}</div>${p.user?`<p class="sn">User: ${E(p.user)}</p>`:""}${p.url?`<a class="sn" style="color:var(--ac)" href="${E(p.url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Open ↗</a>`:""}</div></div>`).join("")||emp("No apps yet. Tap + to add one.")}
+const gmailH=()=>D.gmails.map(g=>`<div class="it" data-a="gm" data-id="${g.id}"><div class="ico">✉️</div><div class="bd"><b>${E(g.nick||g.email)}</b><div class="mu">${E(g.email)}</div>${g.purpose?`<p class="sn">${E(g.purpose)}</p>`:""}<div class="mt"><span class="bg">${D.apps.filter(a=>a.gid===g.id).length} linked apps · tap to view</span></div></div><button class="ib" data-a="edit" data-kind="gmail" data-id="${g.id}">✏️</button></div>`).join("")||emp("No Gmail accounts yet. Tap + to add one.");
+function vaultH(){const q=Q.toLowerCase(),a=V.list.filter(e=>(!VC||e.cat===VC)&&(e.name+e.user+(e.cat||"")).toLowerCase().includes(q));
+return a.map(e=>`<div class="card"><b>${E(e.name)}</b>${e.cat?` <span class="bg">${E(e.cat)}</span>`:""}<div class="mu">${E(e.user)}</div><div class="mu" style="font-family:monospace;margin:4px 0 8px">${shown[e.id]?E(e.pw):"••••••••••"}</div><div class="row"><button class="btn g" data-a="sh" data-id="${e.id}">${shown[e.id]?"Hide":"Show"}</button><button class="btn g" data-a="cp" data-id="${e.id}" data-f="user">Copy user</button><button class="btn g" data-a="cp" data-id="${e.id}" data-f="pw">Copy pass</button></div><div class="row" style="margin-top:8px">${e.url?`<a class="btn g" style="text-align:center;text-decoration:none" href="${E(/^https?:/i.test(e.url)?e.url:"https://"+e.url)}" target="_blank" rel="noopener">Open ↗</a>`:""}<button class="btn g" data-a="ve" data-id="${e.id}">Edit</button></div></div>`).join("")||emp("No logins found. Tap + to add one.")}
+const seg=(items,c)=>`<div class="seg">${items.map(([k,l])=>`<button class="${k===c?"on":""}" data-a="sub" data-k="${k}">${l}</button>`).join("")}</div>`;
+const srch=`<input id="q" placeholder="🔍 Search" value="${""}">`;
+function listH(){const s=sub[tab];
+if(tab==="personal"||tab==="work"){const c=tab==="work"?"Work":"Personal";return s==="tasks"?tasksH(c):s==="goals"?(D.goals.filter(g=>g.ctx===c).map(goalC).join("")||emp("No goals yet. Tap + to add one.")):s==="notes"?notesH(c):s==="plan"?planH():s==="cal"?calH():`<div class="card"><h4 style="margin-top:0">Work accounts</h4><div class="row"><button class="btn" data-a="nav" data-k="accounts">✉️ Gmail &amp; Apps</button><button class="btn" data-a="nav" data-k="vault">🔑 Password Vault</button></div></div>`}
+if(tab==="accounts")return s==="gm"?gmailH():appsH();return V.key?vaultH():""}
+function home(){const h=new Date().getHours(),td=today(),op=D.tasks.filter(t=>!t.done),wk=new Date(Date.now()+6048e5),w7=wk.getFullYear()+"-"+pad(wk.getMonth()+1)+"-"+pad(wk.getDate()),due=op.filter(t=>t.due&&t.due<=td);
+const st=(n,l)=>`<div class="card" style="margin:0"><div class="big">${n}</div><div class="mu">${l}</div></div>`,cd=(k,i,l,s)=>`<button class="card" data-a="nav" data-k="${k}" ${s?`data-s="${s}"`:""}><div class="ico">${i}</div><b>${l}</b></button>`;
+return`<div class="card" style="background:var(--ac);color:#fff"><div style="font-size:22px;font-weight:700">Good ${h<12?"morning":h<18?"afternoon":"evening"}${D.prefs.name?", "+E(D.prefs.name):""} 👋</div><div style="opacity:.85">${new Date().toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"})}</div></div>
+<div class="grid">${st(due.length,"Tasks due today")}${st(D.tasks.filter(t=>t.done).length,"Completed")}${st(op.filter(t=>t.due>td&&t.due<=w7).length+D.goals.filter(g=>g.due&&g.due>=td&&g.due<=w7&&gp(g)<100).length,"Deadlines this week")}${st(D.goals.filter(g=>gp(g)<100).length,"Active goals")}</div>
+<div class="grid">${cd("personal","🏡","Personal")}${cd("work","💼","Work")}${cd("vault","🔑","Password Vault")}${cd("accounts","✉️","Gmail &amp; Apps")}${cd("personal","🎯","My Goals","goals")}${cd("personal","✅","To-Do List","tasks")}</div>
+<h4>Today’s focus</h4>${due.length?due.slice(0,5).map(taskC).join(""):emp("Nothing due today. Enjoy it! ✨")}`}
+function render(){document.documentElement.dataset.theme=D.prefs.theme||"";$("#ttl").textContent={home:"MySpace",personal:"Personal",work:"Work",accounts:"Accounts",vault:"Vault"}[tab];
+$("#nv").innerHTML=[["home","🏠","Home"],["personal","🏡","Personal"],["work","💼","Work"],["accounts","✉️","Accounts"],["vault","🔑","Vault"]].map(([k,i,l])=>`<button class="${k===tab?"on":""}" data-a="nav" data-k="${k}"><span>${i}</span>${l}</button>`).join("");
+const s=sub[tab];let h="";
+if(tab==="home")h=home();
+else if(tab==="personal")h=seg([["tasks","Tasks"],["goals","Goals"],["notes","Notes"],["plan","Planner"],["cal","Calendar"]],s)+(s==="notes"?`<input id="q" placeholder="🔍 Search notes" value="${E(Q)}">`:"")+`<div id="list">${listH()}</div>`;
+else if(tab==="work")h=seg([["tasks","Tasks"],["goals","Goals"],["notes","Notes"],["acct","Accounts"]],s)+(s==="notes"?`<input id="q" placeholder="🔍 Search notes" value="${E(Q)}">`:"")+`<div id="list">${listH()}</div>`;
+else if(tab==="accounts")h=seg([["gm","Gmail accounts"],["apps","Apps &amp; sites"]],s)+(s==="apps"?`<input id="q" placeholder="🔍 Search apps" value="${E(Q)}"><select id="fg"><option value="">All Gmail accounts</option>${D.gmails.map(g=>`<option value="${g.id}"${FG===g.id?" selected":""}>${E(g.nick||g.email)}</option>`).join("")}</select>`:"")+`<div id="list">${listH()}</div><p class="mu">This is your own organizer. It does not discover apps automatically.</p>`;
+else h=V.key?`<div class="row" style="margin-bottom:8px"><input id="q" placeholder="🔍 Search vault" value="${E(Q)}" style="flex:3"><select id="vc" style="flex:2"><option value="">All</option>${[...new Set(V.list.map(e=>e.cat).filter(Boolean))].map(c=>`<option${VC===c?" selected":""}>${E(c)}</option>`).join("")}</select></div><div class="row" style="margin-bottom:12px"><button class="btn g" data-a="lock">🔒 Lock vault</button><label class="btn g" style="text-align:center;margin:0;cursor:pointer;color:var(--ac)">Import CSV<input type="file" id="csv" accept=".csv,text/csv" hidden></label></div><div id="list">${listH()}</div>`:vlockH();
+$("#app").innerHTML=h;$("#fab").style.display=tab==="vault"&&!V.key?"none":""}
+const vlockH=()=>{const has=localStorage.getItem("ms_vault");return`<div class="card" style="text-align:center"><div class="ico">🔒</div><h3>${has?"Vault locked":"Create your vault"}</h3><p class="mu">${has?"Enter your master password.":"Choose a master password (8+ characters). Everything is encrypted on this device. If you forget it, it cannot be recovered."}</p><input id="vp" type="password" placeholder="Master password" autocomplete="off">${has?"":'<input id="vp2" type="password" placeholder="Repeat master password">'}<div class="err" id="ve"></div><button class="btn" style="width:100%" data-a="vgo">${has?"Unlock":"Create vault"}</button></div>`};
+// ---- settings / backup
+function settings(){modal(`<h3>Settings</h3><label>Your name</label><input id="sn" value="${E(D.prefs.name)}"><label>Theme</label><select id="th"><option value="">Auto</option><option value="light"${D.prefs.theme==="light"?" selected":""}>Light</option><option value="dark"${D.prefs.theme==="dark"?" selected":""}>Dark</option></select><button class="btn" style="width:100%;margin-bottom:14px" data-a="ssave">Save</button>
+<h4>App lock</h4><p class="mu">Asks for a PIN when you open the app. It keeps casual snoopers out of your tasks and notes. Only the Vault is truly encrypted.</p><div class="row" style="flex-wrap:nowrap"><input id="pn" type="password" inputmode="numeric" placeholder="New PIN (4 to 8 digits)"><button class="btn g" style="flex:none;margin:4px 0 12px" data-a="pset">Set PIN</button></div>${D.prefs.pin?'<button class="btn r" data-a="prem" style="width:100%;margin-bottom:14px">Remove app lock</button>':""}<h4>Backup</h4><p class="mu">All data lives only on this device, in this browser. It does not sync anywhere. Clearing browser data erases it, so export a backup regularly. Your vault stays encrypted inside the backup.</p><div class="row"><button class="btn g" data-a="exp">Export backup</button><label class="btn g" style="text-align:center;margin:0;cursor:pointer;color:var(--ac)">Import backup<input type="file" id="imp" accept=".json,application/json" hidden></label></div><button class="btn r" style="width:100%;margin-top:14px" data-a="clr">Clear all my data</button><button class="btn g" style="width:100%;margin-top:10px" data-a="x">Close</button>`)}
+async function exportB(){const s=JSON.stringify({app:"MySpace",v:1,data:D,vault:JSON.parse(localStorage.getItem("ms_vault")||"null")});
+try{const d=await claude.use("downloads");if(!d)throw 0;await d.save({filename:"myspace-backup-"+today()+".json",data:s});toast("Backup ready")}catch(e){modal(`<h3>Copy your backup</h3><p class="mu">Select all, copy, and keep it somewhere safe.</p><textarea style="min-height:200px" readonly onfocus="this.select()">${E(s)}</textarea><button class="btn" style="width:100%" data-a="x">Done</button>`)}}
+function importB(f){const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);if(o.app!=="MySpace")throw 0;ask("This replaces everything currently in MySpace with the backup.",()=>{D=Object.assign(blank(),o.data);o.vault?localStorage.setItem("ms_vault",JSON.stringify(o.vault)):localStorage.removeItem("ms_vault");V={key:null,list:[],salt:""};save();render();toast("Backup restored")})}catch(e){toast("That is not a MySpace backup")}};r.readAsText(f)}
+// ---- events
+function parseCSV(s){const r=[];let row=[],c="",q=0;for(let i=0;i<s.length;i++){const ch=s[i];if(q){if(ch=='"'){if(s[i+1]=='"'){c+='"';i++}else q=0}else c+=ch}else if(ch=='"')q=1;else if(ch===","){row.push(c);c=""}else if(ch==="\n"||ch==="\r"){if(ch==="\r"&&s[i+1]==="\n")i++;row.push(c);c="";r.push(row);row=[]}else c+=ch}if(c||row.length){row.push(c);r.push(row)}return r.filter(x=>x.some(y=>y.trim()))}
+function importCSV(f){const r=new FileReader();r.onload=async()=>{const rows=parseCSV(r.result.replace(/^\uFEFF/,"")),h=(rows.shift()||[]).map(x=>x.trim().toLowerCase()),ix=(...n)=>h.findIndex(x=>n.includes(x)),c={name:ix("name","title","site"),url:ix("url","website","login_uri"),user:ix("username","user","login","login_username","email"),pw:ix("password","login_password","pass"),cat:ix("category","folder","group","grouping"),notes:ix("note","notes","extra")};
+if(c.pw<0||(c.name<0&&c.url<0)){toast("Could not find name and password columns");return}let n=0;rows.forEach(x=>{const g=k=>c[k]>=0?(x[c[k]]||"").trim():"",pw=g("pw");if(!pw)return;V.list.push({id:uid(),name:g("name")||g("url"),user:g("user"),pw,url:g("url"),cat:g("cat"),notes:g("notes")});n++});await vsave();render();toast(n+" logins imported. Now delete the CSV file!")};r.readAsText(f)}
+const sha=async(s,p)=>b64(await crypto.subtle.digest("SHA-256",enc.encode(s+":"+p)));
+function pinScreen(){if(!D.prefs.pin)return;lock();const o=$("#ov");o.innerHTML=`<div class="card" style="width:min(340px,90%);text-align:center"><div class="ico">🔐</div><h3>MySpace is locked</h3><input id="pp" type="password" inputmode="numeric" placeholder="PIN" autocomplete="off"><div class="err" id="pe"></div><button class="btn" style="width:100%" data-a="pgo">Unlock</button></div>`;o.style.display="flex"}
+let hid=0;document.addEventListener("visibilitychange",()=>{if(document.hidden)hid=Date.now();else if(D.prefs.pin&&Date.now()-hid>60000)pinScreen()});
+const add=k=>openForm(k,null,tab==="work"?"Work":"Personal");
+document.addEventListener("click",async e=>{if(e.target.id==="m"){closeM();return}const el=e.target.closest("[data-a]");if(!el)return;const a=el.dataset.a,d=el.dataset;
+if(a==="nav"){tab=d.k;if(d.s)sub[tab]=d.s;Q="";FG="";VC="";render();scrollTo(0,0)}
+else if(a==="sub"){sub[tab]=d.k;Q="";render()}
+else if(a==="tog"){const o=D[d.col].find(x=>x.id===d.id);d.i!==undefined?o.subs[+d.i].d=!o.subs[+d.i].d:o.done=!o.done;save();render()}
+else if(a==="edit")openForm(d.kind,d.id)
+else if(a==="pin"){const n=D.notes.find(x=>x.id===d.id);n.pin=!n.pin;save();render()}
+else if(a==="gm"){FG=d.id;sub.accounts="apps";render()}
+else if(a==="tovault"){e.stopPropagation();tab="vault";render()}
+else if(a==="fab"){const s=sub[tab];if(tab==="vault")openV();else if(tab==="accounts")openForm(s==="gm"?"gmail":"app");else if(tab==="personal"||tab==="work"){s==="acct"?quick():add(s==="tasks"?"task":s==="goals"?"goal":s==="notes"?"note":"plan")}else quick()}
+else if(a==="q"){closeM();add(d.k)}
+else if(a==="x")closeM();
+else if(a==="yes"){closeM();pend&&pend();pend=null}
+else if(a==="save")saveForm();
+else if(a==="del")ask("Delete this item?",()=>{const S=F[cur.kind];D[S.c]=D[S.c].filter(x=>x.id!==cur.id);save();render()});
+else if(a==="set")settings();
+else if(a==="ssave"){D.prefs.name=$("#sn").value.trim();D.prefs.theme=$("#th").value;save();closeM();render()}
+else if(a==="exp")exportB();
+else if(a==="clr")ask("This permanently erases all tasks, notes, accounts and the vault on this device. Export a backup first if unsure.",()=>{D=blank();localStorage.removeItem("ms_data");localStorage.removeItem("ms_vault");V={key:null,list:[],salt:""};tab="home";render();toast("All data cleared")});
+else if(a==="lock")lock();
+else if(a==="vgo"){const p=$("#vp").value,has=localStorage.getItem("ms_vault");try{if(has)await vunlock(p);else{if(p.length<8||p!==$("#vp2").value){$("#ve").textContent=p.length<8?"Use at least 8 characters":"Passwords do not match";return}await vsetup(p)}touch();render()}catch(x){$("#ve").textContent="Wrong password"}}
+else if(a==="sh"){shown[d.id]=!shown[d.id];render()}
+else if(a==="cp"){const v=V.list.find(x=>x.id===d.id)[d.f];try{await navigator.clipboard.writeText(v);toast("Copied")}catch(x){toast("Copy blocked here. Use Show and copy by hand")}}
+else if(a==="ve")openV(d.id);
+else if(a==="gen"){$("#vpw").value=gen()}
+else if(a==="cm"){CM=new Date(CM.getFullYear(),CM.getMonth()+ +d.d,1);render()}
+else if(a==="cd"){CS=d.d;render()}
+else if(a==="pset"){const p=$("#pn").value;if(!/^\d{4,8}$/.test(p)){toast("Use 4 to 8 digits");return}const s=gen(8);D.prefs.pin={s,h:await sha(s,p)};save();closeM();toast("App lock is on")}
+else if(a==="prem"){delete D.prefs.pin;save();closeM();toast("App lock removed")}
+else if(a==="pgo"){const p=$("#pp").value;if(await sha(D.prefs.pin.s,p)===D.prefs.pin.h)$("#ov").style.display="none";else $("#pe").textContent="Wrong PIN"}
+else if(a==="vsv")saveV();
+else if(a==="vdel")ask("Delete this login?",async()=>{V.list=V.list.filter(x=>x.id!==cur.id);await vsave();render()})});
+const quick=()=>modal(`<h3>Quick add</h3><div class="row"><button class="btn g" data-a="q" data-k="task">✅ Task</button><button class="btn g" data-a="q" data-k="note">📝 Note</button></div><div class="row" style="margin-top:8px"><button class="btn g" data-a="q" data-k="goal">🎯 Goal</button><button class="btn g" data-a="q" data-k="app">✉️ Account</button></div>`);
+document.addEventListener("input",e=>{if(e.target.id==="q"){Q=e.target.value;$("#list").innerHTML=listH()}});
+document.addEventListener("change",e=>{const t=e.target;if(t.id==="fg"){FG=t.value;$("#list").innerHTML=listH()}else if(t.id==="vc"){VC=t.value;$("#list").innerHTML=listH()}else if(t.id==="imp"&&t.files[0])importB(t.files[0]);else if(t.id==="csv"&&t.files[0])importCSV(t.files[0])});
+document.addEventListener("keydown",e=>{if(e.key==="Enter"&&(e.target.id==="vp"||e.target.id==="vp2"))document.querySelector('[data-a="vgo"]').click()});
+render();pinScreen();
+</script></body></html>

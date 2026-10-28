@@ -1,0 +1,13 @@
+{
+  "appId": "com.forge.myspace",
+  "appName": "MySpace",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 1800,
+      "backgroundColor": "#0a0f1d",
+      "showSpinner": false
+    }
+  }
+}

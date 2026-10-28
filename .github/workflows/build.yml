@@ -1,0 +1,125 @@
+name: Build Android APK (APK Forge)
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_name:
+        description: 'Version Name'
+        required: false
+        default: '1.0.0'
+      version_code:
+        description: 'Version Code'
+        required: false
+        default: '1'
+  push:
+    branches:
+      - main
+      - master
+    paths-ignore:
+      - 'README.md'
+      - 'builds.json'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Set up Java Development Kit (JDK 17)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Project & Capacitor Dependencies
+        run: |
+          npm ci || npm install --legacy-peer-deps
+
+      - name: Initialize Android Platform
+        run: |
+          if [ ! -d "android" ]; then
+            npx cap add android
+          else
+            npx cap sync android
+          fi
+
+      - name: Apply App Permissions & Settings
+        run: |
+          node patch-android.js || true
+
+      - name: Copy App Launcher Icons
+        run: |
+          if [ -d "icons" ]; then
+            for density in mdpi hdpi xhdpi xxhdpi xxxhdpi; do
+              if [ -f "icons/mipmap-$density/ic_launcher.png" ]; then
+                mkdir -p "android/app/src/main/res/mipmap-$density"
+                cp "icons/mipmap-$density/ic_launcher.png" "android/app/src/main/res/mipmap-$density/ic_launcher.png"
+                cp "icons/mipmap-$density/ic_launcher.png" "android/app/src/main/res/mipmap-$density/ic_launcher_round.png"
+              fi
+            done
+          fi
+
+      - name: Sync Capacitor Android
+        run: |
+          npx cap copy android
+          npx cap sync android
+
+      - name: Grant Execute Permission for Gradle
+        run: |
+          chmod +x android/gradlew
+
+      - name: Build APK with Gradle
+        run: |
+          cd android
+          ./gradlew assembleDebug
+          cd ..
+
+      - name: Prepare Debug APK
+        run: |
+          mkdir -p output
+          DEBUG_APK=$(find android/app/build/outputs/apk/debug -name "*.apk" | head -n 1)
+          cp "$DEBUG_APK" "output/MySpace-v1.0.0.apk"
+
+      - name: Locate Output APK
+        id: find_apk
+        run: |
+          APK_FILE=$(find android/app/build/outputs/apk -name "*.apk" | head -n 1)
+          if [ -z "$APK_FILE" ]; then
+            APK_FILE=$(find output -name "*.apk" | head -n 1)
+          fi
+          echo "Found APK at: $APK_FILE"
+          echo "apk_path=$APK_FILE" >> $GITHUB_OUTPUT
+          echo "apk_filename=$(basename "$APK_FILE")" >> $GITHUB_OUTPUT
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MySpace-v1.0.0-APK
+          path: ${{ steps.find_apk.outputs.apk_path }}
+          retention-days: 90
+
+      - name: Publish GitHub Release (Direct Download)
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/heads/main') || startsWith(github.ref, 'refs/heads/master') || github.event_name == 'workflow_dispatch'
+        with:
+          tag_name: v${{ github.run_number }}-1.0.0
+          name: 'MySpace v1.0.0 (Build #${{ github.run_number }})'
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          files: ${{ steps.find_apk.outputs.apk_path }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
