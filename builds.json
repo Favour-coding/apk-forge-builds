@@ -1,0 +1,22 @@
+[
+  {
+    "id": "build-1793217860930",
+    "appName": "MySpace",
+    "packageId": "com.forge.myspace",
+    "versionName": "1.0.0",
+    "versionCode": 1,
+    "inputType": "html",
+    "inputSource": "my-space.html",
+    "date": "2026-10-28T20:04:20.930Z",
+    "status": "done",
+    "runId": 40759606120,
+    "downloadUrl": "https://github.com/Favour-coding/apk-forge-builds/releases/download/v3-1.0.0/app-debug.apk",
+    "releaseUrl": "https://github.com/Favour-coding/apk-forge-builds/releases/download/v3-1.0.0/app-debug.apk",
+    "durationMs": 0,
+    "permissions": [
+      "internet"
+    ],
+    "orientation": "portrait",
+    "splashColor": "#0a0f1d"
+  }
+]
