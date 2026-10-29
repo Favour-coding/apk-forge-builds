@@ -1,6 +1,6 @@
 {
-  "appId": "com.forge.myspace",
-  "appName": "MySpace",
+  "appId": "com.forge.keepfirst",
+  "appName": "KeepFirst",
   "webDir": "www",
   "bundledWebRuntime": false,
   "plugins": {
