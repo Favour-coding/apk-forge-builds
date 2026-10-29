@@ -37,7 +37,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Set up Node.js
+      - name: Set up Node.js for Android Platform
         uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -95,7 +95,7 @@ jobs:
         run: |
           mkdir -p output
           DEBUG_APK=$(find android/app/build/outputs/apk/debug -name "*.apk" | head -n 1)
-          cp "$DEBUG_APK" "output/MySpace-v1.0.0.apk"
+          cp "$DEBUG_APK" "output/KeepFirst-v1.0.0.apk"
 
       - name: Locate Output APK
         id: find_apk
@@ -111,7 +111,7 @@ jobs:
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: MySpace-v1.0.0-APK
+          name: KeepFirst-v1.0.0-APK
           path: ${{ steps.find_apk.outputs.apk_path }}
           retention-days: 90
 
@@ -120,7 +120,7 @@ jobs:
         if: startsWith(github.ref, 'refs/heads/main') || startsWith(github.ref, 'refs/heads/master') || github.event_name == 'workflow_dispatch'
         with:
           tag_name: v${{ github.run_number }}-1.0.0
-          name: 'MySpace v1.0.0 (Build #${{ github.run_number }})'
+          name: 'KeepFirst v1.0.0 (Build #${{ github.run_number }})'
           draft: false
           prerelease: false
           generate_release_notes: true
