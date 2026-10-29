@@ -1,5 +1,25 @@
 [
   {
+    "id": "build-1793242707031",
+    "appName": "KeepFirst",
+    "packageId": "com.forge.keepfirst",
+    "versionName": "1.0.0",
+    "versionCode": 1,
+    "inputType": "html",
+    "inputSource": "keepfirst2.html",
+    "date": "2026-10-29T02:58:27.031Z",
+    "status": "done",
+    "runId": 40809268272,
+    "downloadUrl": "https://github.com/Favour-coding/apk-forge-builds/releases/download/v4-1.0.0/app-debug.apk",
+    "releaseUrl": "https://github.com/Favour-coding/apk-forge-builds/releases/download/v4-1.0.0/app-debug.apk",
+    "durationMs": 0,
+    "permissions": [
+      "internet"
+    ],
+    "orientation": "portrait",
+    "splashColor": "#0a0f1d"
+  },
+  {
     "id": "build-1793217860930",
     "appName": "MySpace",
     "packageId": "com.forge.myspace",
